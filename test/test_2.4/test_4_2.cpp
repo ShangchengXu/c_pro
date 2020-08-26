@@ -16,7 +16,7 @@ int main()
     pt[1] = 21;
     pt[2] = 22;
     cout << pt << pt[0] << endl << pt[1] << endl << str_1;
-    
+    delete [] str_1;
 
     return 0;
 
