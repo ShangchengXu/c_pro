@@ -7,6 +7,7 @@ int main()
     char * name;
     name = get_name();
     cout << name << "at" <<(int *)name <<endl;
+    delete [] name;
     name = get_name();
     cout << name << "at" <<(int *)name <<endl;
     delete [] name;
