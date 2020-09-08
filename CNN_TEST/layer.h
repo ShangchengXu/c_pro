@@ -9,13 +9,15 @@ class Layer_cnn
         int ** frame;
         int ** frame_out;
         int ** weight;
+        int ** g_frame;
         void initialize();
     public:
         Layer_cnn(int,int,int *frame,int *weight);
         void layer_forward();
         ~Layer_cnn();
         void display();
-        int ** layer_backword(int **);
+        // void layer_backward(int **);
+        void function_cnn(int ,int , int **, int **,int **);
 };
 
 
