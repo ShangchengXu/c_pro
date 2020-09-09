@@ -51,6 +51,7 @@ Layer_cnn::Layer_cnn(int frame_size_,int weight_size_,double * weight_in,int bia
         for(int j = 0; j < w_s; j++)
         {
             weight[i][j] = weight_in[w_n];
+            // std::cout << weight_in[w_n]<<"  "<< std::endl;
             w_n++;
         }
     }
@@ -151,7 +152,7 @@ void Layer_cnn::layer_backward(double ** g_frame_in)
     // function_display(weight_size,weight_rot180,"weight_rot180");
     // function_display(frame_size,g_frame,"g_frame");
     function_cnn(frame_size,frame_size-weight_size + 1,frame,g_frame_in,g_weight);
-    function_display(weight_size,g_weight,"g_weight");
+    // function_display(weight_size,g_weight,"g_weight");
 
     for(int i = 0; i < weight_size; i++)
     {

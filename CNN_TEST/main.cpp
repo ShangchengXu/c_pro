@@ -12,27 +12,35 @@ int main()
     int bias_ = 0;
 
 //****************************init*********************************//
+    int fra_in_size = 25;
+    int wei_size = 5;
+    int g_fra_size = fra_in_size - wei_size + 1;
+    int fra_out_size = fra_in_size - wei_size + 1;
+    int answer_size = fra_in_size - wei_size + 1;
+//****************************init*********************************//
 
     double **answer;
-    answer = new double * [1];
-    for(int i = 0 ; i < 1 ; i++)
+    answer = new double * [answer_size];
+    for(int i = 0 ; i < answer_size ; i++)
     {
-        answer[i] = new double [1];
+        answer[i] = new double [answer_size];
     }
-    for(int i = 0 ; i < 1 ; i++)
+    for(int i = 0 ; i < answer_size ; i++)
     {
-        for(int j = 0 ; j < 1 ; j++)
+        for(int j = 0 ; j < answer_size ; j++)
         {
-            answer[i][j] = rand()%1024;
+            answer[i][j] = rand()%256;
+            answer[i][j] = answer[i][j]/256;
+            // answer[i][j] = 0.222;
         }
     }
 
 
     double ** g_fra;
-    g_fra = new double * [1];
-    for(int i = 0 ; i < 21 ; i++)
+    g_fra = new double * [g_fra_size];
+    for(int i = 0 ; i < g_fra_size ; i++)
     {
-        g_fra[i] = new double [1];
+        g_fra[i] = new double [g_fra_size];
     }
     // for(int i = 0 ; i < 4 ; i++)
     // {
@@ -48,24 +56,27 @@ int main()
     // {
     //     fra[i] = rand()%256;
     // }
-    for(int i = 0; i <25 ; i++)
+    for(int i = 0; i <wei_size*wei_size ; i++)
     {
         wei[i] = rand()%256;
         wei[i] = wei[i]/512;
+        // std::cout << wei[i]<<"  "<< std::endl;
+        // wei[i] = wei[i]/512;
     }
 
     //********************************************************//
     double ** fra_in;
-    fra_in  = new double *[25];
-    for(int i = 0 ; i < 25 ; i++)
+    fra_in  = new double *[fra_in_size];
+    for(int i = 0 ; i < fra_in_size ; i++)
     {
-        fra_in[i] = new double [25];
+        fra_in[i] = new double [fra_in_size];
     }
-    for(int i = 0 ; i < 25 ; i++)
+    for(int i = 0 ; i < fra_in_size ; i++)
     {
-        for(int j = 0 ; j < 25 ; j++)
+        for(int j = 0 ; j < fra_in_size ; j++)
         {
-            fra_in[i][j] = (rand()%256)/1024;
+            fra_in[i][j] = (rand()%256);
+            fra_in[i][j] = fra_in[i][j]/1024;
         }
     }
 
@@ -73,38 +84,39 @@ int main()
 
 //************************************************************//
 
-    Layer_cnn layer = Layer_cnn(5,5,wei,bias_,0.0003);
-    for(int i = 0 ; i < 2 ; i ++)
+    Layer_cnn layer = Layer_cnn(fra_in_size,wei_size,wei,bias_,0.005);
+    for(int i = 0 ; i < 2000 ; i ++)
     {
-    layer.layer_forward(5,fra_in);
-    layer.display();
-    std::cout<<std::endl<<"loss: "<<function_loss(1,answer,layer.layer_output())<<std::endl;
-    for(int i = 0 ; i < 1 ; i++)
+    layer.layer_forward(fra_in_size,fra_in);
+    // layer.display();
+    std::cout<<std::endl<<"loss: "<<function_loss(fra_out_size,answer,layer.layer_output())<<std::endl;
+    for(int i = 0 ; i < fra_out_size ; i++)
     {
-        for(int j = 0 ; j < 1 ; j++)
+        for(int j = 0 ; j < fra_out_size ; j++)
         {
             g_fra[i][j] = 2*(layer.layer_output()[i][j]-answer[i][j]);
-            std:cout<<std::endl<<"g_fra:"<<g_fra[i][j]<<std::endl;;
+            // std:cout<<std::endl<<"g_fra:"<<g_fra[i][j]<<std::endl;
         }
     }
 
     layer.layer_backward(g_fra);
     }
+    // layer.display();
     
 
-    for(int i = 0 ; i < 1 ; i++)
+    for(int i = 0 ; i < fra_in_size ; i++)
     {
         delete [] g_fra[i];
     }
     delete []g_fra;
 
-    for(int i = 0 ; i < 1 ; i++)
+    for(int i = 0 ; i < answer_size ; i++)
     {
         delete [] answer[i];
     }
     delete []answer;
 
-    for(int i = 0 ; i < 25 ; i++)
+    for(int i = 0 ; i < fra_in_size ; i++)
     {
         delete [] fra_in[i];
     }
