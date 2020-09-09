@@ -1,6 +1,6 @@
 #include <iostream>
 #include "layer.h"
-
+#include "function.h"
 void Layer_cnn::initialize()
 {
     frame = new int*[frame_size];
@@ -146,6 +146,19 @@ void Layer_cnn::layer_forward()
     function_cnn(frame_size,weight_size,frame,weight,frame_out);
 };
 
+// void function_display(int frame_size_in,int ** frame_in_,std::string str)
+// {
+//     std::cout<<str;
+//     for(int i = 0 ; i < frame_size_in ; i++)
+//     {   
+//         std::cout<<std::endl;
+//         for(int j = 0 ; j < frame_size_in ; j++)
+//         {
+//             std::cout<<frame_in_[i][j]<<" ";
+//         }
+//     }
+// }
+
 void Layer_cnn::layer_backward(int ** g_frame)
 {
     int ** g_frame_;
@@ -171,4 +184,7 @@ void Layer_cnn::layer_backward(int ** g_frame)
         }
     }
     
+    
 }
+
+
