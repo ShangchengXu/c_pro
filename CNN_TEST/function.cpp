@@ -11,4 +11,5 @@ void function_display(int frame_size_in,int ** frame_in_,const std::string str)
             std::cout<<frame_in_[i][j]<<" ";
         }
     }
+    std::cout<<std::endl;
 }
