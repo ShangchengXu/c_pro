@@ -77,35 +77,8 @@ Layer_cnn::~Layer_cnn()
 
 void Layer_cnn::display()
 {
-    // std::cout << "frame:";
-    // for(int i = 0;i < frame_size;i++)
-    // {   
-    //     std::cout << std::endl;
-    //     for(int j = 0 ;j <frame_size; j++)
-    //     {
-    //         std::cout << frame[i][j] << " ";
-    //     }
-    // }
     function_display(frame_size,frame,"frame");
-    // std::cout << std::endl << "weight:";
-    // for(int i = 0;i < weight_size;i++)
-    // {   
-    //     std::cout << std::endl;
-    //     for(int j = 0 ;j <weight_size; j++)
-    //     {
-    //         std::cout << weight[i][j] << " ";
-    //     }
-    // }
     function_display(weight_size,weight,"weight");
-    // std::cout << std::endl << "frame_out:";
-    // for(int i = 0;i <frame_size-weight_size+1;i++)
-    // {   
-    //     std::cout << std::endl;
-    //     for(int j = 0 ;j < frame_size-weight_size+1; j++)
-    //     {
-    //         std::cout << frame_out[i][j] << " ";
-    //     }
-    // }
     function_display(frame_size-weight_size+1,frame_out,"frame_out");
 };
 
@@ -130,37 +103,9 @@ void Layer_cnn::function_cnn(int frame_size_,int weight_size_,int ** frame_,int 
 }
 void Layer_cnn::layer_forward()
 {
-    // for(int i = 0; i < frame_size - weight_size +1 ; i++)
-    // {
-    //     for(int j = 0; j < frame_size - weight_size +1 ; j++) 
-    //     {
-    //         int sum = 0;
-    //             for(int k = 0; k < weight_size; k++)
-    //             {
-    //                 for(int l = 0; l <weight_size; l++)
-    //                 {
-    //                     sum += frame[i+k][j+l] * weight[k][l];
-    //                     // std::cout<<frame[i+k][j+l]<<"*"<<weight[k][l]<<std::endl;
-    //                 }
-    //             }
-    //         frame_out[i][j] = sum; 
-    //     }
-    // }
     function_cnn(frame_size,weight_size,frame,weight,frame_out);
 };
 
-// void function_display(int frame_size_in,int ** frame_in_,std::string str)
-// {
-//     std::cout<<str;
-//     for(int i = 0 ; i < frame_size_in ; i++)
-//     {   
-//         std::cout<<std::endl;
-//         for(int j = 0 ; j < frame_size_in ; j++)
-//         {
-//             std::cout<<frame_in_[i][j]<<" ";
-//         }
-//     }
-// }
 
 void Layer_cnn::layer_backward(int ** g_frame)
 {
@@ -186,7 +131,13 @@ void Layer_cnn::layer_backward(int ** g_frame)
             
         }
     }
-    
+    function_display(frame_size,g_frame_,"g_frame_");
+
+    for(int i = 0; i < frame_size; i++)
+    {
+        delete [] g_frame_[i];
+    }
+    delete [] g_frame_;
     
 }
 
