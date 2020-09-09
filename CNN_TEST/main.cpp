@@ -11,13 +11,13 @@ int main()
     double wei[25];
     int bias_ = 0;
 
+//****************************init*********************************//
 
-
-    int **answer;
-    answer = new int * [1];
+    double **answer;
+    answer = new double * [1];
     for(int i = 0 ; i < 1 ; i++)
     {
-        answer[i] = new int [1];
+        answer[i] = new double [1];
     }
     for(int i = 0 ; i < 1 ; i++)
     {
@@ -28,11 +28,11 @@ int main()
     }
 
 
-    int ** g_fra;
-    g_fra = new int * [1];
+    double ** g_fra;
+    g_fra = new double * [1];
     for(int i = 0 ; i < 21 ; i++)
     {
-        g_fra[i] = new int [1];
+        g_fra[i] = new double [1];
     }
     // for(int i = 0 ; i < 4 ; i++)
     // {
@@ -50,29 +50,30 @@ int main()
     // }
     for(int i = 0; i <25 ; i++)
     {
-        wei[i] = 0.2556;
+        wei[i] = rand()%256;
+        wei[i] = wei[i]/512;
     }
 
     //********************************************************//
-    int ** fra_in;
-    fra_in  = new int *[25];
+    double ** fra_in;
+    fra_in  = new double *[25];
     for(int i = 0 ; i < 25 ; i++)
     {
-        fra_in[i] = new int [25];
+        fra_in[i] = new double [25];
     }
     for(int i = 0 ; i < 25 ; i++)
     {
         for(int j = 0 ; j < 25 ; j++)
         {
-            fra_in[i][j] = rand()%256;
+            fra_in[i][j] = (rand()%256)/1024;
         }
     }
 
 
 
+//************************************************************//
 
-
-    Layer_cnn layer = Layer_cnn(5,5,wei,bias_,0.03);
+    Layer_cnn layer = Layer_cnn(5,5,wei,bias_,0.0003);
     for(int i = 0 ; i < 2 ; i ++)
     {
     layer.layer_forward(5,fra_in);

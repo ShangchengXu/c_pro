@@ -6,20 +6,20 @@ class Layer_cnn
     private:
         int frame_size;
         int weight_size;
-        int ** frame;
-        int ** frame_out;
+        double ** frame;
+        double ** frame_out;
         double ** weight;
-        int ** g_frame;
+        double ** g_frame;
         int bias;
         double study_speed;
         void initialize();
     public:
         Layer_cnn(int,int,double *weight,int,double );
-        void layer_forward(int ,int **);
+        void layer_forward(int ,double **);
         ~Layer_cnn();
         void display();
-        void layer_backward(int **);
-        int ** layer_output();
+        void layer_backward(double **);
+        double ** layer_output();
         // void function_cnn(int ,int ,int **, int **,int **);
 };
 

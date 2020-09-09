@@ -28,7 +28,7 @@ void function_display(int frame_size_in,double ** frame_in_,const std::string st
 };
 
 
-void function_extend(int g_frame_size_ , int weight_size_ , int ** g_frame_out,int ** g_frame_in)
+void function_extend(int g_frame_size_ , int weight_size_ , double ** g_frame_out,double ** g_frame_in)
 {
     // int g_frame_size_ = frame_size_+weight_size_-1;
     for (int i = 0; i < g_frame_size_; i++)
@@ -49,46 +49,7 @@ void function_extend(int g_frame_size_ , int weight_size_ , int ** g_frame_out,i
 };
 
 
-void function_cnn(int frame_size_,int weight_size_,int ** frame_,int ** weight_,int ** frame_out_)
-{
-     for(int i = 0; i < frame_size_ - weight_size_ +1 ; i++)
-    {
-        for(int j = 0; j < frame_size_ - weight_size_ +1 ; j++) 
-        {
-            int sum = 0;
-                for(int k = 0; k < weight_size_; k++)
-                {
-                    for(int l = 0; l <weight_size_; l++)
-                    {
-                        sum += frame_[i+k][j+l] * weight_[k][l];
-                        // std::cout<<frame[i+k][j+l]<<"*"<<weight[k][l]<<std::endl;
-                    }
-                }
-            frame_out_[i][j] = sum; 
-        }
-    }
-}
-void function_cnn(int frame_size_,int weight_size_,int ** frame_,double ** weight_,int ** frame_out_)
-{
-     for(int i = 0; i < frame_size_ - weight_size_ +1 ; i++)
-    {
-        for(int j = 0; j < frame_size_ - weight_size_ +1 ; j++) 
-        {
-            int sum = 0;
-                for(int k = 0; k < weight_size_; k++)
-                {
-                    for(int l = 0; l <weight_size_; l++)
-                    {
-                        sum += frame_[i+k][j+l] * weight_[k][l];
-                        // std::cout<<frame[i+k][j+l]<<"*"<<weight[k][l]<<std::endl;
-                    }
-                }
-            frame_out_[i][j] = sum; 
-        }
-    }
-}
-
-void function_cnn(int frame_size_,int weight_size_,int ** frame_,double ** weight_,double ** frame_out_)
+void function_cnn(int frame_size_,int weight_size_,double ** frame_,double ** weight_,double ** frame_out_)
 {
      for(int i = 0; i < frame_size_ - weight_size_ +1 ; i++)
     {
@@ -107,6 +68,9 @@ void function_cnn(int frame_size_,int weight_size_,int ** frame_,double ** weigh
         }
     }
 }
+
+
+
 
 void function_rot180(const int size,double ** arr_out,double ** arr_in)
 {
@@ -138,14 +102,14 @@ void function_rot180(const int size,double ** arr_out,double ** arr_in)
 
 }
 
-long long function_loss(int m_size,int ** y,int ** x)
+double function_loss(int m_size,double ** y,double ** x)
 {
-    long long sum = 0 ;
+    double sum = 0 ;
     for(int i = 0; i < m_size ; i ++)
     {
       for(int j = 0; j < m_size ; j ++)  
       {
-          sum += abs(y[i][j]-x[i][j]);
+          sum += (y[i][j]-x[i][j])*(y[i][j]-x[i][j]);
       }
     }
     sum = sum /(m_size*m_size);
