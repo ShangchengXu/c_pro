@@ -48,7 +48,7 @@ int main()
     // {
     //     fra[i] = rand()%256;
     // }
-    for(int i = 0; i < 4 ; i++)
+    for(int i = 0; i <25 ; i++)
     {
         wei[i] = rand()%256;
     }
@@ -72,12 +72,12 @@ int main()
 
 
 
-    Layer_cnn layer = Layer_cnn(5,2,wei,bias_,0.01);
-    for(int i = 0 ; i < 20 ; i ++)
+    Layer_cnn layer = Layer_cnn(25,5,wei,bias_,0.001);
+    for(int i = 0 ; i < 2000 ; i ++)
     {
     layer.layer_forward(25,fra_in);
     //layer.display();
-    std::cout<<std::endl<<"loss: "<<function_loss(4,answer,layer.layer_output())<<std::endl;
+    std::cout<<std::endl<<"loss: "<<function_loss(21,answer,layer.layer_output())<<std::endl;
     for(int i = 0 ; i < 4 ; i++)
     {
         for(int j = 0 ; j < 4 ; j++)

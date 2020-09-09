@@ -154,7 +154,7 @@ void Layer_cnn::layer_backward(int ** g_frame_in)
             weight [i][j] -= study_speed*g_weight[i][j];
         }
     }
-    function_display(weight_size,weight,"weight_change");
+    // function_display(weight_size,weight,"weight_change");
     
 
 
