@@ -107,31 +107,33 @@ void Layer_cnn::layer_forward()
 };
 
 
-void Layer_cnn::layer_backward(int ** g_frame)
+void Layer_cnn::layer_backward(int ** g_frame_in)
 {
     int ** g_frame_;
-    g_frame_ = new int *[frame_size];
-    for(int i = 0 ; i < frame_size ; i++)
+    int g_frame_size_ = frame_size+weight_size-1;
+    g_frame_ = new int *[g_frame_size_];
+    for(int i = 0 ; i < g_frame_size_ ; i++)
     {
-        g_frame_[i] = new int [frame_size];
+        g_frame_[i] = new int [g_frame_size_];
     }
 
-    for (int i = 0; i < frame_size; i++)
-    {
-        for(int j = 0; j <frame_size ; j++)
-        {
-            if((i<weight_size-1)||(i>frame_size-weight_size)||(j<weight_size-1)||(j>frame_size-weight_size))
-            {
-                g_frame_[i][j] = 0;
-            }
-            else
-            {
-                g_frame_[i][j] = g_frame[i-weight_size+1][j-weight_size+1];
-            }
+    // for (int i = 0; i < g_frame_size_; i++)
+    // {
+    //     for(int j = 0; j <g_frame_size_; j++)
+    //     {
+    //         if((i<weight_size-1)||(i>g_frame_size_-weight_size)||(j<weight_size-1)||(j>g_frame_size_-weight_size))
+    //         {
+    //             g_frame_[i][j] = 0;
+    //         }
+    //         else
+    //         {
+    //             g_frame_[i][j] = g_frame[i-weight_size+1][j-weight_size+1];
+    //         }
             
-        }
-    }
-    function_display(frame_size,g_frame_,"g_frame_");
+    //     }
+    // }
+    function_extend(frame_size,weight_size,g_frame_,g_frame_in);
+    function_display(g_frame_size_,g_frame_,"g_frame_");
 
     for(int i = 0; i < frame_size; i++)
     {

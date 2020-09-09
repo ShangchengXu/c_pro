@@ -21,7 +21,7 @@ int main()
     {
         for(int j = 0 ; j < 4 ; j++)
         {
-            g_fra[i][j] = rand();
+            g_fra[i][j] = rand()%256;
         }
     }
 
