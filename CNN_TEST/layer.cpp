@@ -116,22 +116,6 @@ void Layer_cnn::layer_backward(int ** g_frame_in)
     {
         g_frame_[i] = new int [g_frame_size_];
     }
-
-    // for (int i = 0; i < g_frame_size_; i++)
-    // {
-    //     for(int j = 0; j <g_frame_size_; j++)
-    //     {
-    //         if((i<weight_size-1)||(i>g_frame_size_-weight_size)||(j<weight_size-1)||(j>g_frame_size_-weight_size))
-    //         {
-    //             g_frame_[i][j] = 0;
-    //         }
-    //         else
-    //         {
-    //             g_frame_[i][j] = g_frame[i-weight_size+1][j-weight_size+1];
-    //         }
-            
-    //     }
-    // }
     function_extend(g_frame_size_,weight_size,g_frame_,g_frame_in);
     function_display(g_frame_size_,g_frame_,"g_frame_");
 
