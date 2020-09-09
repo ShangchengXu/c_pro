@@ -17,7 +17,7 @@ class Layer_cnn
         ~Layer_cnn();
         void display();
         // void layer_backward(int **);
-        void function_cnn(int ,int , int **, int **,int **);
+        void function_cnn(const int ,const int ,const  int **, const int **,int **);
 };
 
 
