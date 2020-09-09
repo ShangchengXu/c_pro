@@ -55,3 +55,33 @@ void function_cnn(int frame_size_,int weight_size_,int ** frame_,int ** weight_,
         }
     }
 }
+
+void function_rot180(const int size,int ** arr_out,int ** arr_in)
+{
+    int **arr_temp = new int *[size];
+    for(int i = 0; i < size ; i++)
+    {
+        arr_temp[i] = new int [size];
+    }
+    for (int i = 0 ; i < size ; i++)
+    {
+        for (int j = 0; j < size ; j++)
+        {
+            arr_temp[i][j] = arr_in[i][j];
+        }
+    }
+    for (int i = 0 ; i < size ; i++)
+    {
+        for (int j = 0; j < size ; j++)
+        {
+            arr_out[i][j] = arr_temp[size - i - 1][size-j - 1];
+        }
+    }
+    for (int i = 0; i < size; i++)
+    {
+        delete [] arr_temp[i];
+    }
+    delete [] arr_temp;
+
+
+}

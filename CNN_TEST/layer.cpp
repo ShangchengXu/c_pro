@@ -18,6 +18,11 @@ void Layer_cnn::initialize()
     {
         frame_out[i] = new int [frame_size-weight_size+1];
     }
+    g_frame = new int * [frame_size];
+    for (int i = 0;i < frame_size;i++)
+    {
+        g_frame[i] = new int [frame_size];
+    }
 }
 
 
@@ -72,7 +77,12 @@ Layer_cnn::~Layer_cnn()
         {
             delete[] frame_out[i];
         }
-            delete [] frame_out;        
+            delete [] frame_out;
+    for(int i = 0;i < frame_size;i++)
+        {
+            delete[] g_frame[i];
+        }
+            delete [] g_frame;                
 };
 
 void Layer_cnn::display()
@@ -90,21 +100,39 @@ void Layer_cnn::layer_forward()
 
 void Layer_cnn::layer_backward(int ** g_frame_in)
 {
-    int ** g_frame_;
+    int ** g_frame_,** weight_rot180;
     int g_frame_size_ = frame_size+weight_size-1;
     g_frame_ = new int *[g_frame_size_];
     for(int i = 0 ; i < g_frame_size_ ; i++)
     {
         g_frame_[i] = new int [g_frame_size_];
     }
+    weight_rot180 = new int * [ weight_size];
+    for(int i = 0 ; i < weight_size ; i++)
+    {
+        weight_rot180[i] = new int [weight_size];
+    }
+    function_rot180(weight_size,weight_rot180,weight);
     function_extend(g_frame_size_,weight_size,g_frame_,g_frame_in);
     function_display(g_frame_size_,g_frame_,"g_frame_");
+    function_display(weight_size,weight_rot180,"weight_rot180");
+    
+
+
+
+
 
     for(int i = 0; i < frame_size; i++)
     {
         delete [] g_frame_[i];
     }
     delete [] g_frame_;
+
+    for(int i = 0; i < weight_size; i++)
+    {
+        delete [] weight_rot180[i];
+    }
+    delete [] weight_rot180;
     
 }
 
