@@ -11,13 +11,15 @@ class Layer_cnn
         int ** weight;
         int ** g_frame;
         int bias;
+        double study_speed;
         void initialize();
     public:
-        Layer_cnn(int,int,int *frame,int *weight,int );
-        void layer_forward();
+        Layer_cnn(int,int,int *weight,int,double );
+        void layer_forward(int ,int **);
         ~Layer_cnn();
         void display();
         void layer_backward(int **);
+        int ** layer_output();
         // void function_cnn(int ,int ,int **, int **,int **);
 };
 

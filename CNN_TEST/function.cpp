@@ -85,3 +85,17 @@ void function_rot180(const int size,int ** arr_out,int ** arr_in)
 
 
 }
+
+int function_loss(int m_size,int ** y,int ** x)
+{
+    int sum = 0 ;
+    for(int i = 0; i < m_size ; i ++)
+    {
+      for(int j = 0; j < m_size ; j ++)  
+      {
+          sum += (y[i][j]-x[i][j])*(y[i][j]-x[i][j]);
+      }
+    }
+    sum = sum /(m_size*m_size);
+    return sum;
+}
