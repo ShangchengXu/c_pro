@@ -8,7 +8,7 @@ int main()
     using namespace std;
     srand(10);
     int fra[25],wei[25];
-
+    int bias_ = 10;
 
 
     int ** g_fra;
@@ -36,7 +36,7 @@ int main()
         wei[i] = rand()%256;
     }
 
-    Layer_cnn layer = Layer_cnn(5,2,fra,wei);
+    Layer_cnn layer = Layer_cnn(5,2,fra,wei,bias_);
     layer.layer_forward();
     layer.display();
     layer.layer_backward(g_fra);

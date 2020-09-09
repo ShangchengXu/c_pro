@@ -27,12 +27,13 @@ void Layer_cnn::initialize()
 
 
 
-Layer_cnn::Layer_cnn(int frame_size_,int weight_size_,int * frame_in,int * weight_in)
+Layer_cnn::Layer_cnn(int frame_size_,int weight_size_,int * frame_in,int * weight_in,int bias_)
 {
     frame_size = frame_size_;
     weight_size = weight_size_;
     int f_s = frame_size;
     int w_s = weight_size;
+    bias = bias_;
     initialize();
     int f_n = 0;
     int w_n = 0;
@@ -95,6 +96,13 @@ void Layer_cnn::display()
 void Layer_cnn::layer_forward()
 {
     function_cnn(frame_size,weight_size,frame,weight,frame_out);
+    for(int i = 0 ; i < frame_size-weight_size+1 ; i++)
+    {
+        for(int j = 0 ; j < frame_size-weight_size+1 ; j++)
+        {
+            frame_out[i][j] += bias;
+        }
+    }
 };
 
 
@@ -114,8 +122,10 @@ void Layer_cnn::layer_backward(int ** g_frame_in)
     }
     function_rot180(weight_size,weight_rot180,weight);
     function_extend(g_frame_size_,weight_size,g_frame_,g_frame_in);
+    function_cnn(g_frame_size_,weight_size,g_frame_,weight_rot180,g_frame );
     function_display(g_frame_size_,g_frame_,"g_frame_");
     function_display(weight_size,weight_rot180,"weight_rot180");
+    function_display(frame_size,g_frame,"g_frame");
     
 
 
