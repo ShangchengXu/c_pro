@@ -146,7 +146,29 @@ void Layer_cnn::layer_forward()
     function_cnn(frame_size,weight_size,frame,weight,frame_out);
 };
 
-// int **layer_backward(int ** g_frame)
-// {
+void Layer_cnn::layer_backward(int ** g_frame)
+{
+    int ** g_frame_;
+    g_frame_ = new int *[frame_size];
+    for(int i = 0 ; i < frame_size ; i++)
+    {
+        g_frame_[i] = new int [frame_size];
+    }
+
+    for (int i = 0; i < frame_size; i++)
+    {
+        for(int j = 0; j <frame_size ; j++)
+        {
+            if((i<weight_size-1)||(i>frame_size-weight_size)||(j<weight_size-1)||(j>frame_size-weight_size))
+            {
+                g_frame_[i][j] = 0;
+            }
+            else
+            {
+                g_frame_[i][j] = g_frame[i-weight_size+1][j-weight_size+1];
+            }
+            
+        }
+    }
     
-// }
+}

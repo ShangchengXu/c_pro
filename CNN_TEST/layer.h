@@ -16,7 +16,7 @@ class Layer_cnn
         void layer_forward();
         ~Layer_cnn();
         void display();
-        // void layer_backward(int **);
+        void layer_backward(int **);
         void function_cnn(int ,int ,int **, int **,int **);
 };
 
