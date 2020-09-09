@@ -8,31 +8,31 @@ int main()
 {
     using namespace std;
     srand(10);
-    int wei[25];
-    int bias_ = 10;
+    double wei[25];
+    int bias_ = 0;
 
 
 
     int **answer;
-    answer = new int * [21];
-    for(int i = 0 ; i < 21 ; i++)
+    answer = new int * [1];
+    for(int i = 0 ; i < 1 ; i++)
     {
-        answer[i] = new int [21];
+        answer[i] = new int [1];
     }
-    for(int i = 0 ; i < 21 ; i++)
+    for(int i = 0 ; i < 1 ; i++)
     {
-        for(int j = 0 ; j < 21 ; j++)
+        for(int j = 0 ; j < 1 ; j++)
         {
-            answer[i][j] = rand()%256;
+            answer[i][j] = rand()%1024;
         }
     }
 
 
     int ** g_fra;
-    g_fra = new int * [25];
-    for(int i = 0 ; i < 25 ; i++)
+    g_fra = new int * [1];
+    for(int i = 0 ; i < 21 ; i++)
     {
-        g_fra[i] = new int [25];
+        g_fra[i] = new int [1];
     }
     // for(int i = 0 ; i < 4 ; i++)
     // {
@@ -50,7 +50,7 @@ int main()
     // }
     for(int i = 0; i <25 ; i++)
     {
-        wei[i] = rand()%256;
+        wei[i] = 0.2556;
     }
 
     //********************************************************//
@@ -60,9 +60,9 @@ int main()
     {
         fra_in[i] = new int [25];
     }
-    for(int i = 0 ; i < 4 ; i++)
+    for(int i = 0 ; i < 25 ; i++)
     {
-        for(int j = 0 ; j < 4 ; j++)
+        for(int j = 0 ; j < 25 ; j++)
         {
             fra_in[i][j] = rand()%256;
         }
@@ -72,17 +72,18 @@ int main()
 
 
 
-    Layer_cnn layer = Layer_cnn(25,5,wei,bias_,0.001);
-    for(int i = 0 ; i < 2000 ; i ++)
+    Layer_cnn layer = Layer_cnn(5,5,wei,bias_,0.03);
+    for(int i = 0 ; i < 2 ; i ++)
     {
-    layer.layer_forward(25,fra_in);
-    //layer.display();
-    std::cout<<std::endl<<"loss: "<<function_loss(21,answer,layer.layer_output())<<std::endl;
-    for(int i = 0 ; i < 4 ; i++)
+    layer.layer_forward(5,fra_in);
+    layer.display();
+    std::cout<<std::endl<<"loss: "<<function_loss(1,answer,layer.layer_output())<<std::endl;
+    for(int i = 0 ; i < 1 ; i++)
     {
-        for(int j = 0 ; j < 4 ; j++)
+        for(int j = 0 ; j < 1 ; j++)
         {
-            g_fra[i][j] = function_loss(4,answer,layer.layer_output());
+            g_fra[i][j] = 2*(layer.layer_output()[i][j]-answer[i][j]);
+            std:cout<<std::endl<<"g_fra:"<<g_fra[i][j]<<std::endl;;
         }
     }
 
@@ -90,13 +91,13 @@ int main()
     }
     
 
-    for(int i = 0 ; i < 4 ; i++)
+    for(int i = 0 ; i < 1 ; i++)
     {
         delete [] g_fra[i];
     }
     delete []g_fra;
 
-    for(int i = 0 ; i < 4 ; i++)
+    for(int i = 0 ; i < 1 ; i++)
     {
         delete [] answer[i];
     }

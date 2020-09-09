@@ -8,10 +8,10 @@ void Layer_cnn::initialize()
     {
         frame[i] = new int [frame_size];
     }
-    weight = new int*[weight_size];
+    weight = new double*[weight_size];
     for (int i = 0;i < weight_size;i++)
     {
-        weight[i] = new int [weight_size];
+        weight[i] = new double [weight_size];
     }
     frame_out = new int*[frame_size-weight_size+1];
     for (int i = 0;i < frame_size-weight_size+1;i++)
@@ -27,7 +27,7 @@ void Layer_cnn::initialize()
 
 
 
-Layer_cnn::Layer_cnn(int frame_size_,int weight_size_,int * weight_in,int bias_,double study_speed_)
+Layer_cnn::Layer_cnn(int frame_size_,int weight_size_,double * weight_in,int bias_,double study_speed_)
 {
     frame_size = frame_size_;
     weight_size = weight_size_;
@@ -119,7 +119,8 @@ void Layer_cnn::layer_forward(int frame_in_size,int ** frame_in)
 
 void Layer_cnn::layer_backward(int ** g_frame_in)
 {
-    int ** g_frame_,** weight_rot180;
+    int ** g_frame_;
+    double ** weight_rot180;
     int ** g_weight;
     int g_frame_size_ = frame_size+weight_size-1;
     g_frame_ = new int *[g_frame_size_];
@@ -127,10 +128,10 @@ void Layer_cnn::layer_backward(int ** g_frame_in)
     {
         g_frame_[i] = new int [g_frame_size_];
     }
-    weight_rot180 = new int * [ weight_size];
+    weight_rot180 = new double * [ weight_size];
     for(int i = 0 ; i < weight_size ; i++)
     {
-        weight_rot180[i] = new int [weight_size];
+        weight_rot180[i] = new double [weight_size];
     }
     g_weight = new int * [ weight_size];
     for(int i = 0 ; i < weight_size ; i++)
@@ -145,7 +146,7 @@ void Layer_cnn::layer_backward(int ** g_frame_in)
     // function_display(weight_size,weight_rot180,"weight_rot180");
     // function_display(frame_size,g_frame,"g_frame");
     function_cnn(frame_size,frame_size-weight_size + 1,frame,g_frame_in,g_weight);
-    // function_display(weight_size,g_weight,"g_weight");
+    function_display(weight_size,g_weight,"g_weight");
 
     for(int i = 0; i < weight_size; i++)
     {

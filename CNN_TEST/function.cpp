@@ -13,6 +13,19 @@ void function_display(int frame_size_in,int ** frame_in_,const std::string str)
     }
     std::cout<<std::endl;
 };
+void function_display(int frame_size_in,double ** frame_in_,const std::string str)
+{
+    std::cout<<str;
+    for(int i = 0 ; i < frame_size_in ; i++)
+    {   
+        std::cout<<std::endl;
+        for(int j = 0 ; j < frame_size_in ; j++)
+        {
+            std::cout<<frame_in_[i][j]<<" ";
+        }
+    }
+    std::cout<<std::endl;
+};
 
 
 void function_extend(int g_frame_size_ , int weight_size_ , int ** g_frame_out,int ** g_frame_in)
@@ -55,13 +68,52 @@ void function_cnn(int frame_size_,int weight_size_,int ** frame_,int ** weight_,
         }
     }
 }
-
-void function_rot180(const int size,int ** arr_out,int ** arr_in)
+void function_cnn(int frame_size_,int weight_size_,int ** frame_,double ** weight_,int ** frame_out_)
 {
-    int **arr_temp = new int *[size];
+     for(int i = 0; i < frame_size_ - weight_size_ +1 ; i++)
+    {
+        for(int j = 0; j < frame_size_ - weight_size_ +1 ; j++) 
+        {
+            int sum = 0;
+                for(int k = 0; k < weight_size_; k++)
+                {
+                    for(int l = 0; l <weight_size_; l++)
+                    {
+                        sum += frame_[i+k][j+l] * weight_[k][l];
+                        // std::cout<<frame[i+k][j+l]<<"*"<<weight[k][l]<<std::endl;
+                    }
+                }
+            frame_out_[i][j] = sum; 
+        }
+    }
+}
+
+void function_cnn(int frame_size_,int weight_size_,int ** frame_,double ** weight_,double ** frame_out_)
+{
+     for(int i = 0; i < frame_size_ - weight_size_ +1 ; i++)
+    {
+        for(int j = 0; j < frame_size_ - weight_size_ +1 ; j++) 
+        {
+            double sum = 0;
+                for(int k = 0; k < weight_size_; k++)
+                {
+                    for(int l = 0; l <weight_size_; l++)
+                    {
+                        sum += frame_[i+k][j+l] * weight_[k][l];
+                        // std::cout<<frame[i+k][j+l]<<"*"<<weight[k][l]<<std::endl;
+                    }
+                }
+            frame_out_[i][j] = sum; 
+        }
+    }
+}
+
+void function_rot180(const int size,double ** arr_out,double ** arr_in)
+{
+    double **arr_temp = new double *[size];
     for(int i = 0; i < size ; i++)
     {
-        arr_temp[i] = new int [size];
+        arr_temp[i] = new double [size];
     }
     for (int i = 0 ; i < size ; i++)
     {
@@ -86,14 +138,14 @@ void function_rot180(const int size,int ** arr_out,int ** arr_in)
 
 }
 
-int function_loss(int m_size,int ** y,int ** x)
+long long function_loss(int m_size,int ** y,int ** x)
 {
-    int sum = 0 ;
+    long long sum = 0 ;
     for(int i = 0; i < m_size ; i ++)
     {
       for(int j = 0; j < m_size ; j ++)  
       {
-          sum += (y[i][j]-x[i][j])*(y[i][j]-x[i][j]);
+          sum += abs(y[i][j]-x[i][j]);
       }
     }
     sum = sum /(m_size*m_size);
