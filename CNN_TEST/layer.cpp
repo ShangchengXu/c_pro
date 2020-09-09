@@ -106,7 +106,7 @@ void Layer_cnn::display()
     }
 };
 
-void Layer_cnn::function_cnn(const int frame_size_,const int weight_size_,const int ** frame_,const int **weight_,int ** frame_out_)
+void Layer_cnn::function_cnn(int frame_size_,int weight_size_,int ** frame_,int ** weight_,int ** frame_out_)
 {
      for(int i = 0; i < frame_size_ - weight_size_ +1 ; i++)
     {
@@ -146,7 +146,7 @@ void Layer_cnn::layer_forward()
     function_cnn(frame_size,weight_size,frame,weight,frame_out);
 };
 
-int **layer_backward(int ** g_frame)
-{
+// int **layer_backward(int ** g_frame)
+// {
     
-}
+// }
