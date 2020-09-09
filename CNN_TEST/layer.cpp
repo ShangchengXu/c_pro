@@ -82,25 +82,25 @@ void Layer_cnn::display()
     function_display(frame_size-weight_size+1,frame_out,"frame_out");
 };
 
-void Layer_cnn::function_cnn(int frame_size_,int weight_size_,int ** frame_,int ** weight_,int ** frame_out_)
-{
-     for(int i = 0; i < frame_size_ - weight_size_ +1 ; i++)
-    {
-        for(int j = 0; j < frame_size_ - weight_size_ +1 ; j++) 
-        {
-            int sum = 0;
-                for(int k = 0; k < weight_size_; k++)
-                {
-                    for(int l = 0; l <weight_size_; l++)
-                    {
-                        sum += frame_[i+k][j+l] * weight_[k][l];
-                        // std::cout<<frame[i+k][j+l]<<"*"<<weight[k][l]<<std::endl;
-                    }
-                }
-            frame_out_[i][j] = sum; 
-        }
-    }
-}
+// void Layer_cnn::function_cnn(int frame_size_,int weight_size_,int ** frame_,int ** weight_,int ** frame_out_)
+// {
+//      for(int i = 0; i < frame_size_ - weight_size_ +1 ; i++)
+//     {
+//         for(int j = 0; j < frame_size_ - weight_size_ +1 ; j++) 
+//         {
+//             int sum = 0;
+//                 for(int k = 0; k < weight_size_; k++)
+//                 {
+//                     for(int l = 0; l <weight_size_; l++)
+//                     {
+//                         sum += frame_[i+k][j+l] * weight_[k][l];
+//                         // std::cout<<frame[i+k][j+l]<<"*"<<weight[k][l]<<std::endl;
+//                     }
+//                 }
+//             frame_out_[i][j] = sum; 
+//         }
+//     }
+// }
 void Layer_cnn::layer_forward()
 {
     function_cnn(frame_size,weight_size,frame,weight,frame_out);
