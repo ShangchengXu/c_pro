@@ -15,7 +15,7 @@ void function_display(int frame_size_in,int ** frame_in_,const std::string str)
 };
 
 
-void funtion_extend(int g_frame_size_ , int weight_size_ , int ** g_frame_out,int ** g_frame_in)
+void function_extend(int g_frame_size_ , int weight_size_ , int ** g_frame_out,int ** g_frame_in)
 {
     // int g_frame_size_ = frame_size_+weight_size_-1;
     for (int i = 0; i < g_frame_size_; i++)

@@ -132,7 +132,7 @@ void Layer_cnn::layer_backward(int ** g_frame_in)
             
     //     }
     // }
-    function_extend(frame_size,weight_size,g_frame_,g_frame_in);
+    function_extend(g_frame_size_,weight_size,g_frame_,g_frame_in);
     function_display(g_frame_size_,g_frame_,"g_frame_");
 
     for(int i = 0; i < frame_size; i++)
