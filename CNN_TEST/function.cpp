@@ -12,7 +12,7 @@ void function_display(int frame_size_in,int ** frame_in_,const std::string str)
         }
     }
     std::cout<<std::endl;
-}
+};
 
 
 void funtion_extend(int g_frame_size_ , int weight_size_ , int ** g_frame_out,int ** g_frame_in)
@@ -33,4 +33,4 @@ void funtion_extend(int g_frame_size_ , int weight_size_ , int ** g_frame_out,in
             
         }
     }
-}
+};
