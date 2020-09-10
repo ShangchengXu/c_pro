@@ -23,5 +23,27 @@ class Layer_cnn
         // void function_cnn(int ,int ,int **, int **,int **);
 };
 
+class Layer_maxpooling
+{
+    private:
+        int frame_size;
+        int pooling_size;
+        double ** frame;
+        double ** frame_out;
+        double ** g_frame;
+        void initialize();
+    public:
+        Layer_maxpooling(int,int);
+        ~Layer_maxpooling();
+        void layer_forward(double **);
+        void display();
+        void layer_backward(double **);
+        double ** layer_output();
 
+
+
+
+
+
+};
 #endif
