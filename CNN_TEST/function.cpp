@@ -135,6 +135,7 @@ void function_maxpooling(int frame_in_size,int pooling_size,double ** frame_in, 
                     }
                 }
             }
+            frame_out[i/pooling_size][j/pooling_size] = max_temp;
         }
     }
 };

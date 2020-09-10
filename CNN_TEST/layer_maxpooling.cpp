@@ -90,3 +90,24 @@ void Layer_maxpooling::layer_forward(double ** frame_in)
     function_maxpooling(frame_size,pooling_size,frame,frame_out,g_frame_pos);
 };
 
+
+void Layer_maxpooling::layer_backward(double ** g_fra)
+{
+    for(int i = 0; i < frame_size; i++)
+    {
+       for(int j = 0; j < frame_size; j++) 
+       {
+           g_frame[i][j] = 0;
+       }
+    }
+    for(int i = 0; i < frame_size/pooling_size; i++)
+    {
+        for(int j = 0; j < frame_size/pooling_size; j++)
+        {
+            int x = g_frame_pos[i][j]%frame_size;
+            int y = g_frame_pos[i][j]-(g_frame_pos[i][j]%frame_size);
+            g_frame[x][y] = g_fra[i][j];
+        }
+    }
+}
+

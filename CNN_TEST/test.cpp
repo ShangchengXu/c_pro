@@ -133,7 +133,7 @@ using namespace std;
 
 void max_pooling_test()
 {   
-    int frame_size  = 24;
+    int frame_size  = 6;
     int pooling_size = 2;
     int frame_out_size = frame_size/pooling_size;
     double ** frame;
@@ -145,15 +145,18 @@ void max_pooling_test()
     function_init(frame_size,frame);
     
     frame_out = function_new_double(frame_out_size);
-    // function_init(frame_out_size,frame_out);
+    function_init(frame_out_size,frame_out);
 
     frame_out_pos = function_new_int(frame_out_size);
-    function_init(frame_out_size,frame_out_pos);
+    // function_init(frame_out_size,frame_out_pos);
+    function_display(frame_size,frame,"frame:");
+    function_display(frame_out_size,frame_out,"frame_out:");
+    function_display(frame_out_size,frame_out_pos,"frame_out_pos:");
 
     function_maxpooling(frame_size,pooling_size,frame,frame_out,frame_out_pos);
     function_display(frame_size,frame,"frame:");
     function_display(frame_out_size,frame_out,"frame_out:");
-    function_display(frame_out_size,frame_out,"frame_out_pos:");
+    function_display(frame_out_size,frame_out_pos,"frame_out_pos:");
     
 
 
