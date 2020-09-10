@@ -129,11 +129,10 @@ using namespace std;
     delete [] wei;
 
 
-}
+};
 
 void max_pooling_test()
 {   
-    srand(20);
     int frame_size  = 24;
     int pooling_size = 2;
     int frame_out_size = frame_size/pooling_size;
@@ -141,15 +140,15 @@ void max_pooling_test()
     double ** frame_out;
     int ** frame_out_pos;
 
-    // std::cout<<"54545454545";
-    function_new(frame_size,frame);
+    std::cout<<"54545454545";
+    frame = function_new_double(frame_size);
     function_init(frame_size,frame);
     
-    function_new(frame_out_size,frame_out);
-    //function_init(frame_size,frame);
+    frame_out = function_new_double(frame_out_size);
+    // function_init(frame_out_size,frame_out);
 
-    function_new(frame_out_size,frame_out_pos);
-    //function_init(frame_size,frame);
+    frame_out_pos = function_new_int(frame_out_size);
+    function_init(frame_out_size,frame_out_pos);
 
     function_maxpooling(frame_size,pooling_size,frame,frame_out,frame_out_pos);
     function_display(frame_size,frame,"frame:");

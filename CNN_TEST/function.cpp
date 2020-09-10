@@ -140,26 +140,31 @@ void function_maxpooling(int frame_in_size,int pooling_size,double ** frame_in, 
 };
 
 
-void function_new(int frame_size,double **frame)
+double ** function_new_double(int frame_size)
 {
+    // std::cout<<"ok_1"<<std::endl;
+    double ** frame;
     frame = new double * [frame_size];
     for(int i=0;i<frame_size;i++)
     {
         frame[i] = new double [frame_size];
     }
-
-}
-void function_new(int frame_size,int **frame)
-{
+    return frame;
+};
+int** function_new_int(int frame_size)
+{   
+    int ** frame;
+    // std::cout<<"ok_1"<<std::endl;
     frame = new int * [frame_size];
     for(int i=0;i<frame_size;i++)
     {
         frame[i] = new int [frame_size];
     }
-
-}
+    return frame;
+};
 void function_init(int frame_size,double **frame)
-{
+{   
+    srand(20);
     for(int i = 0 ; i < frame_size ; i++)
     {
         for(int j = 0 ; j < frame_size ; j++)
@@ -169,15 +174,29 @@ void function_init(int frame_size,double **frame)
             // answer[i][j] = 0.222;
         }
     }
-}
-void function_delete(int frame_size,double **frame)
+};
+void function_init(int frame_size,int **frame)
 {
+    srand(20);
+    for(int i = 0 ; i < frame_size ; i++)
+    {
+        for(int j = 0 ; j < frame_size ; j++)
+        {
+            frame[i][j] = rand()%256;
+            frame[i][j] = frame[i][j]/256;
+            // answer[i][j] = 0.222;
+        }
+    }
+};
+void function_delete(int frame_size,double **frame)
+{   
+    // std::cout<<"ok_1"<<std::endl;
     for(int i = 0 ; i < frame_size;i++)
     {
         delete [] frame[i];
     }
     delete []frame;
-}
+};
 void function_delete(int frame_size,int **frame)
 {
     for(int i = 0 ; i < frame_size;i++)
@@ -185,4 +204,4 @@ void function_delete(int frame_size,int **frame)
         delete [] frame[i];
     }
     delete []frame;
-}
+};
