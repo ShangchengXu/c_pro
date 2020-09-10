@@ -137,4 +137,52 @@ void function_maxpooling(int frame_in_size,int pooling_size,double ** frame_in, 
             }
         }
     }
+};
+
+
+void function_new(int frame_size,double **frame)
+{
+    frame = new double * [frame_size];
+    for(int i=0;i<frame_size;i++)
+    {
+        frame[i] = new double [frame_size];
+    }
+
+}
+void function_new(int frame_size,int **frame)
+{
+    frame = new int * [frame_size];
+    for(int i=0;i<frame_size;i++)
+    {
+        frame[i] = new int [frame_size];
+    }
+
+}
+void function_init(int frame_size,double **frame)
+{
+    for(int i = 0 ; i < frame_size ; i++)
+    {
+        for(int j = 0 ; j < frame_size ; j++)
+        {
+            frame[i][j] = rand()%256;
+            frame[i][j] = frame[i][j]/256;
+            // answer[i][j] = 0.222;
+        }
+    }
+}
+void function_delete(int frame_size,double **frame)
+{
+    for(int i = 0 ; i < frame_size;i++)
+    {
+        delete [] frame[i];
+    }
+    delete []frame;
+}
+void function_delete(int frame_size,int **frame)
+{
+    for(int i = 0 ; i < frame_size;i++)
+    {
+        delete [] frame[i];
+    }
+    delete []frame;
 }

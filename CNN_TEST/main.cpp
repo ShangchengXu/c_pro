@@ -8,5 +8,6 @@
 
 int main()
 {
-    layer_cnn_test();
+    // layer_cnn_test();
+    max_pooling_test();
 }

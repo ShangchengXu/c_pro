@@ -4,8 +4,6 @@
 #include <string>
 
 void layer_cnn_test();
-
-
 void max_pooling_test();
 
 
