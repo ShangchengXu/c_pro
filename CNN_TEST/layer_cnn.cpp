@@ -27,7 +27,7 @@ void Layer_cnn::initialize()
 
 
 
-Layer_cnn::Layer_cnn(int frame_size_,int weight_size_,double * weight_in,int bias_,double study_speed_)
+Layer_cnn::Layer_cnn(int frame_size_,int weight_size_,double * weight_in,double bias_,double study_speed_)
 {
     frame_size = frame_size_;
     weight_size = weight_size_;
@@ -93,6 +93,7 @@ void Layer_cnn::display()
     function_display(frame_size,frame,"frame");
     function_display(weight_size,weight,"weight");
     function_display(frame_size-weight_size+1,frame_out,"frame_out");
+    std::cout<<std::endl<<"bias:"<<bias<<std::endl;
 };
 
 void Layer_cnn::layer_forward(int frame_in_size,double ** frame_in)
@@ -159,6 +160,13 @@ void Layer_cnn::layer_backward(double ** g_frame_in)
         for (int j = 0; j < weight_size ; j++)
         {
             weight [i][j] -= study_speed*g_weight[i][j];
+        }
+    }
+    for(int i = 0; i < frame_size-weight_size + 1; i++)
+    {
+        for (int j = 0; j < frame_size-weight_size + 1 ; j++)
+        {
+            bias -= study_speed*g_frame_in[i][j];
         }
     }
     // function_display(weight_size,weight,"weight_change");

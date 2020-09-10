@@ -10,11 +10,11 @@ class Layer_cnn
         double ** frame_out;
         double ** weight;
         double ** g_frame;
-        int bias;
+        double bias;
         double study_speed;
         void initialize();
     public:
-        Layer_cnn(int,int,double *weight,int,double );
+        Layer_cnn(int,int,double *weight,double,double );
         void layer_forward(int ,double **);
         ~Layer_cnn();
         void display();

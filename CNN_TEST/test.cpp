@@ -10,7 +10,7 @@ void layer_cnn_test()
 using namespace std;
     srand(10);
     
-    int bias_ = 0;
+    double bias_ = 0;
 
 //****************************init*********************************//
     int fra_in_size = 16;
@@ -86,12 +86,12 @@ using namespace std;
 
 //************************************************************//
 
-    Layer_cnn layer = Layer_cnn(fra_in_size,wei_size,wei,bias_,0.01);
-    for(int i = 0 ; i < 2000 ; i ++)
+    Layer_cnn layer = Layer_cnn(fra_in_size,wei_size,wei,bias_,0.001);
+    for(int i = 0 ; i < 20000 ; i ++)
     {
     layer.layer_forward(fra_in_size,fra_in);
     // layer.display();
-    // std::cout<<std::endl<<"loss: "<<function_loss(fra_out_size,answer,layer.layer_output())<<std::endl;
+    std::cout<<std::endl<<"loss: "<<function_loss(fra_out_size,answer,layer.layer_output())<<std::endl;
     for(int i = 0 ; i < g_fra_size ; i++)
     {
         for(int j = 0 ; j < g_fra_size ; j++)
