@@ -11,5 +11,6 @@ void function_cnn(int ,int ,double **, double **,double **);
 // void function_cnn(int ,int ,int **, double **,double **);
 void function_rot180(int , double **,double **);
 double function_loss(int ,double ** ,double ** );
+void function_maxpooling(int frame_in_size,int pooling_size,double ** frame_in, double ** frame_out,int ** frame_out_pos);
 
 #endif

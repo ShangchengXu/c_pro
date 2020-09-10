@@ -31,6 +31,7 @@ class Layer_maxpooling
         double ** frame;
         double ** frame_out;
         double ** g_frame;
+        int ** g_frame_pos;
         void initialize();
     public:
         Layer_maxpooling(int,int);

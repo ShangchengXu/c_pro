@@ -18,6 +18,12 @@ void Layer_maxpooling::initialize()
     {
         g_frame[i] = new double [frame_size];
     }
+    g_frame_pos = new int * [frame_size/pooling_size];
+    for (int i = 0;i < frame_size/pooling_size;i++)
+    {
+        g_frame_pos[i] = new int [frame_size/pooling_size];
+    }
+
 };
 
 Layer_maxpooling::Layer_maxpooling(int frame_size_,int pooling_size_)
@@ -63,4 +69,24 @@ Layer_maxpooling::~Layer_maxpooling()
         delete [] g_frame[i];
     }
     delete [] g_frame;
+
+    for(int i = 0 ; i < frame_size/pooling_size ; i++)
+    {
+        delete [] g_frame_pos[i];
+    }
+    delete [] g_frame_pos;
 }
+
+void Layer_maxpooling::layer_forward(double ** frame_in)
+{
+    for(int i = 0; i < frame_size; i++)
+    {
+        for(int j = 0; j < frame_size; j++)
+        {
+            frame[i][j] = frame_in[i][j];
+        }
+    }
+
+    function_maxpooling(frame_size,pooling_size,frame,frame_out,g_frame_pos);
+};
+

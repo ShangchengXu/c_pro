@@ -115,3 +115,26 @@ double function_loss(int m_size,double ** y,double ** x)
     sum = sum /(m_size*m_size);
     return sum;
 }
+
+void function_maxpooling(int frame_in_size,int pooling_size,double ** frame_in, double ** frame_out,int ** frame_out_pos)
+{
+    for(int i = 0 ; i < frame_in_size;i = i + pooling_size)
+    {
+        for(int j=0;j<frame_in_size;j = j + pooling_size)
+        {   
+            double max_temp = frame_in[i][j];
+            frame_out_pos[i/pooling_size][j/pooling_size] = i*frame_in_size+j;
+            for(int k = 0 ; k < pooling_size;k++)
+            {
+                for(int l = 0 ; l < pooling_size;l++)
+                {
+                    if(frame_in[i+k][j+l]>max_temp)
+                    {
+                        max_temp = frame_in[i+k][j+l];
+                        frame_out_pos[i/pooling_size][j/pooling_size] = (i+k)*frame_in_size+j+l;
+                    }
+                }
+            }
+        }
+    }
+}
