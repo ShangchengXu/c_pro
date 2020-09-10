@@ -3,12 +3,15 @@
 #include "function.h"
 #include <cstdlib>
 #include "test.h"
+#include <fstream>
 
 void layer_cnn_test()
 {
 
 using namespace std;
     srand(10);
+    ifstream fid_weight;
+    fid_weight.open("weight_c0.txt");
     
     double bias_ = 0;
 
@@ -60,8 +63,8 @@ using namespace std;
     // }
     for(int i = 0; i <wei_size*wei_size ; i++)
     {
-        wei[i] = rand()%256;
-        wei[i] = wei[i]/256;
+        // wei[i] = rand()%256;
+        fid_weight >> wei[i];
         // std::cout << wei[i]<<"  "<< std::endl;
         // wei[i] = wei[i]/512;
     }
@@ -86,7 +89,8 @@ using namespace std;
 
 //************************************************************//
 
-    Layer_cnn layer = Layer_cnn(fra_in_size,wei_size,wei,bias_,0.001);
+    Layer_cnn layer = Layer_cnn(fra_in_size,wei_size,wei,bias_,0.1,1);
+    // layer.display();
     for(int i = 0 ; i < 20000 ; i ++)
     {
     layer.layer_forward(fra_in_size,fra_in);

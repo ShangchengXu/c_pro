@@ -10,11 +10,12 @@ class Layer_cnn
         double ** frame_out;
         double ** weight;
         double ** g_frame;
+        int has_sigmoid;
         double bias;
         double study_speed;
         void initialize();
     public:
-        Layer_cnn(int,int,double *weight,double,double );
+        Layer_cnn(int,int,double *weight,double,double,int );
         void layer_forward(int ,double **);
         ~Layer_cnn();
         void display();
@@ -42,4 +43,18 @@ class Layer_maxpooling
         double ** layer_output();
 
 };
+
+// class Layer_cnn_arr
+// {
+//     private:
+
+
+
+
+
+// }
+
+
+
+
 #endif

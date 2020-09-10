@@ -4,6 +4,7 @@
 #include "test.h"
 #include <cstdlib>
 #include "source.cpp"
+#include <fstream>
 
 
 int main()
@@ -11,5 +12,9 @@ int main()
     // max_pooling_test();
     // layer_maxpooling_test();
     layer_cnn_test();
+
+   
+
+
     return 0;
  }
