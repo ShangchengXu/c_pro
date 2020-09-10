@@ -8,5 +8,7 @@
 
 int main()
 {
-    max_pooling_test();
+    // max_pooling_test();
+    // layer_maxpooling_test();
+    return 0;
  }

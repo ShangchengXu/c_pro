@@ -41,10 +41,5 @@ class Layer_maxpooling
         void layer_backward(double **);
         double ** layer_output();
 
-
-
-
-
-
 };
 #endif

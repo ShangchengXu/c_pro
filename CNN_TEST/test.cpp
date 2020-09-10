@@ -140,7 +140,7 @@ void max_pooling_test()
     double ** frame_out;
     int ** frame_out_pos;
 
-    std::cout<<"54545454545";
+    // std::cout<<"54545454545";
     frame = function_new_double(frame_size);
     function_init(frame_size,frame);
     
@@ -182,6 +182,37 @@ void max_pooling_test()
     function_delete(frame_out_size,frame_out);
     function_delete(frame_out_size,frame_out_pos);
 
+
+
+};
+
+
+
+void layer_maxpooling_test()
+{
+    int frame_size  = 6;
+    int pooling_size = 2;
+    int frame_out_size = frame_size/pooling_size;
+    double ** frame;
+    // double ** frame_out;
+    // int ** frame_out_pos;
+
+    // std::cout<<"54545454545";
+    frame = function_new_double(frame_size);
+    function_init(frame_size,frame);
+    
+    // frame_out = function_new_double(frame_out_size);
+    // function_init(frame_out_size,frame_out);
+
+    // frame_out_pos = function_new_int(frame_out_size);
+
+
+    Layer_maxpooling layer_maxpooling = Layer_maxpooling(frame_size,pooling_size);
+    layer_maxpooling.layer_forward(frame);
+    layer_maxpooling.layer_backward(layer_maxpooling.layer_output());
+    layer_maxpooling.display();
+
+    function_delete(frame_size,frame);
 
 
 }

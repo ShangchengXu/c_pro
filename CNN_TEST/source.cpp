@@ -2,3 +2,4 @@
 #include "function.cpp"
 #include "layer_cnn.cpp"
 #include "test.cpp"
+#include "layer_maxpooling.cpp"
