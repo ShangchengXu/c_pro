@@ -1,3 +1,3 @@
-#include "main.cpp"
+// #include "main.cpp"
 #include "function.cpp"
-#include "layer.cpp"
+#include "layer_cnn.cpp"

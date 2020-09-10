@@ -2,6 +2,7 @@
 #include "layer.h"
 #include "function.h"
 #include <cstdlib>
+#include "source.cpp"
 
 
 int main()
