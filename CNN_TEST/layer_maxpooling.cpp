@@ -126,3 +126,7 @@ double ** Layer_maxpooling::layer_output()
     return frame_out;
 }
 
+double ** Layer_maxpooling::layer_g_frame_output()
+{
+    return g_frame;
+}

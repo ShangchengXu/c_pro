@@ -21,6 +21,7 @@ class Layer_cnn
         void display();
         void layer_backward(double **);
         double ** layer_output();
+        double ** layer_g_frame_output();
         // void function_cnn(int ,int ,int **, int **,int **);
 };
 
@@ -41,6 +42,7 @@ class Layer_maxpooling
         void display();
         void layer_backward(double **);
         double ** layer_output();
+        double ** layer_g_frame_output();
 
 };
 
