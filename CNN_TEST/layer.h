@@ -46,15 +46,31 @@ class Layer_maxpooling
 
 };
 
-// class Layer_cnn_arr
-// {
-//     private:
+class Layer_combine
+{
+    private:
+        int index;
+        double *** frame_arr;
+        int frame_num;
+        int frame_size;
+        int weight_size;
+        double ** frame_out;
+        // double ** g_frame_in;
+        double *** g_frame_arr;
+        double *** weight_arr;
+        Layer_cnn ** layer_cnn_point;
+        void initialize();
+    public:
+        Layer_combine(int index,int frame_num, int frame_size,int weight_size);
+        ~Layer_combine();
 
 
 
 
 
-// }
+
+
+};
 
 
 
