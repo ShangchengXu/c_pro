@@ -22,5 +22,5 @@ void function_delete(int frame_size,int **);
 void function_combine(int frame_size,int frame_num,double ***, double **);
 void function_spread(int frame_size,int frame_num,double ***, double **);
 double function_softmax_out(int num,double * arr_in,double * answer_in,double ***delt_arr_out);
-void function_input(int frame_size,ifstream & fid_image, ifstream & fid_lable,double ** frame_out,double *answer_out);
+int function_input(int frame_size,ifstream & fid_image, ifstream & fid_lable,double ** frame_out,double *answer_out);
 #endif
