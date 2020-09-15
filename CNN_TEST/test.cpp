@@ -91,10 +91,10 @@ using namespace std;
 
     Layer_cnn layer = Layer_cnn(fra_in_size,wei_size,wei,bias_,0.1,1);
     // layer.display();
-    for(int i = 0 ; i < 20000 ; i ++)
+    for(int i = 0 ; i < 1; i ++)
     {
     layer.layer_forward(fra_in_size,fra_in);
-    // layer.display();
+    layer.display();
     std::cout<<std::endl<<"loss: "<<function_loss(fra_out_size,answer,layer.layer_output())<<std::endl;
     for(int i = 0 ; i < g_fra_size ; i++)
     {
@@ -104,7 +104,7 @@ using namespace std;
             //  std:cout<<std::endl<<"g_fra:"<<g_fra[i][j]<<std::endl;
         }
     }
-    // function_display(g_fra_size,g_fra,"g_fra:");
+    function_display(g_fra_size,g_fra,"g_fra:");
     layer.layer_backward(g_fra);
     }
     std::cout<<std::endl<<"loss: "<<function_loss(fra_out_size,answer,layer.layer_output())<<std::endl;

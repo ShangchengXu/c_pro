@@ -278,7 +278,7 @@ double function_softmax_out(int num,double * arr_in,double * answer_in,double **
     // std::cout << std::endl<<"g_output:"<<std::endl;
     for (int i = 0; i < num ; i++)
     {
-        delt_arr_out[i][0][0] = 2*(arr_out[i]-answer_in[i])*arr_out[i]*(1-arr_out[i])/num;
+        delt_arr_out[i][0][0] = 2*(arr_out[i]-answer_in[i])*arr_out[i]*(1-arr_out[i]);
         // std::cout<<delt_arr_out[i][0][0]<<" ";
     }
 //用三维数组表示一个一维数组只是为了模块匹配
@@ -293,7 +293,7 @@ double function_softmax_out(int num,double * arr_in,double * answer_in,double **
     }
     for(int i = 0 ; i < num; i++)
     {
-        if(arr_out[index] > arr_out[i])
+        if(arr_out[index] < arr_out[i])
         {
             flag_ = 0;
         }

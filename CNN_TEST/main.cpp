@@ -34,6 +34,7 @@ int main()
 
     // std::cout<<p_p_p[0][1][1];
     net_tran();
+    // layer_cnn_test();
     // int i = 0 ;
     // int k = 0;
     // for(int j = 0 ; j <10 ; j++ )
