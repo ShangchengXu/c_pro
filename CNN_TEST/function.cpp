@@ -252,33 +252,63 @@ void function_spread(int frame_size,int frame_num,double *** frame_arr_out, doub
     }
 }
 
-double function_softmax_out(int num,double * arr_in,double * answer_in,double ***delt_arr_out)
+double function_softmax_out(int num,double * arr_in,double * answer_in,double ***delt_arr_out,int flag)
 {
     double sum = 0;
     double * arr_out;
     double loss = 0;
+    double flag_ = 1;
+    int index = 0;
     arr_out = new double [num];
     for (int i = 0; i < num ; i++)
     {
         sum += std::exp(arr_in[i]);
     }
+    // std::cout << std::endl<<"output:"<<std::endl;
     for (int i = 0; i < num ; i++)
     {
         arr_out[i] = std::exp(arr_in[i])/sum;
+        // std::cout<<arr_out[i]<<" ";
     }
     for(int i = 0 ; i < num ; i++)
     {
         loss += (arr_out[i]-answer_in[i])*(arr_out[i]-answer_in[i]);
     }
     loss = loss / (num * num);
-
+    // std::cout << std::endl<<"g_output:"<<std::endl;
     for (int i = 0; i < num ; i++)
     {
-        delt_arr_out[i][0][0] = 2*(arr_out[i]-answer_in[i])*arr_out[i]*(1-arr_out[i])/(num*num);
+        delt_arr_out[i][0][0] = 2*(arr_out[i]-answer_in[i])*arr_out[i]*(1-arr_out[i]);
+        // std::cout<<delt_arr_out[i][0][0]<<" ";
     }
 //用三维数组表示一个一维数组只是为了模块匹配
     delete [] arr_out;
-    return loss;
+    for(int i = 0 ; i < num; i++)
+    {
+        if(answer_in[i] == 1) 
+        {
+            index = i;
+            // flag = 1;
+        }
+    }
+    for(int i = 0 ; i < num; i++)
+    {
+        if(arr_out[index] < arr_out[i])
+        {
+            flag_ = 0;
+        }
+    }
+    
+    if(!flag)
+    {
+        return loss;
+    }
+    else
+    {
+        return flag_;
+    }
+    
+    
 }
 
 int function_input(int frame_size,ifstream & fid_image, ifstream & fid_lable,double ** frame_out,double *answer_out)

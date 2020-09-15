@@ -7,7 +7,7 @@
 #include <fstream>
 #include "cnn_net.h"
 
-
+ 
 int main()
 {
     // max_pooling_test();
@@ -34,6 +34,15 @@ int main()
 
     // std::cout<<p_p_p[0][1][1];
     net_tran();
+    // int i = 0 ;
+    // int k = 0;
+    // for(int j = 0 ; j <10 ; j++ )
+    // {
+
+    //     k++;
+    //     k =  k+1;
+
+    // }
 
    
 

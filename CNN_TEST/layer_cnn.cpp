@@ -95,6 +95,7 @@ void Layer_cnn::display()
     function_display(frame_size,frame,"frame");
     function_display(weight_size,weight,"weight");
     function_display(frame_size-weight_size+1,frame_out,"frame_out");
+    function_display(frame_size,g_frame,"g_frame");
     std::cout<<std::endl<<"bias:"<<bias<<std::endl;
 };
 
