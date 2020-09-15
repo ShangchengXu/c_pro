@@ -6,14 +6,30 @@
 #include <fstream>
 
 
-void lenet_5_tran()
+void net_tran()
 {
 
 using namespace std;
-
 //*****************************init*************************************//
-const int rounds = 300;
-int frame_c0_size = 28;
+double ** frame_in;
+double * answer_in;
+int frame_in_size = 28;
+int answer_in_size = 10;
+answer_in = new double [answer_in_size];
+frame_in = new double *[frame_in_size];
+for(int i = 0;i < frame_in_size ; i++)
+{
+    frame_in[i] = new double [frame_in_size];
+}
+
+ifstream fid_frame_in,fid_answer_in;
+fid_frame_in.open("train_image.txt");
+fid_answer_in.open("train_lable.txt");
+function_input(frame_in_size,fid_frame_in, fid_answer_in,frame_in,answer_in);
+
+//*****************************config*************************************//
+const int rounds = 2;
+int frame_c0_size = frame_in_size;
 int weight_c0_size = 5;
 int weight_c2_size = 5;
 int weight_c4_size = 16;
@@ -40,15 +56,13 @@ double study_speed_c4 = 0.1;
 double ** weight_c0;
 double ** weight_c2;
 double ** weight_c4;
-
-
 double *** frame_c4_arr;
 double ** frame_c4_out;
 double * frame_softmax_in;
-double * answer_in;
+// double * answer_in;
 double *** delt_arr_out;
 frame_softmax_in = new double [layer_c4_num];
-answer_in = new double [layer_c4_num];
+// answer_in = new double [layer_c4_num];
 frame_c4_arr = new double **[layer_c3_num];
 for(int i = 0 ; i < frame_c3_size/maxpooling_c3_size ; i++)
 {
@@ -336,7 +350,7 @@ for(int i = 0 ; i < layer_c3_num ; i++)
 delete [] frame_c4_arr;
 
 delete []frame_softmax_in;
-delete []answer_in;
+// delete []answer_in;
 for(int i = 0 ; i < layer_c4_num ; i++)
 {
     for (int j = 0 ; j < 1; j++)
@@ -347,6 +361,15 @@ for(int i = 0 ; i < layer_c4_num ; i++)
 }
 delete []delt_arr_out;
 
+for(int i = 0 ; i < frame_in_size; i++)
+{
+    delete []frame_in[i];
+}
+delete [] frame_in;
+delete [] answer_in;
+
+fid_frame_in.close();
+fid_answer_in.close();
 
 
 }

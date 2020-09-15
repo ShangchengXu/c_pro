@@ -5,6 +5,7 @@
 #include <cstdlib>
 #include "source.cpp"
 #include <fstream>
+#include "cnn_net.h"
 
 
 int main()
@@ -32,7 +33,7 @@ int main()
     // p_p_p[0] = p_p;
 
     // std::cout<<p_p_p[0][1][1];
-
+    net_tran();
 
    
 

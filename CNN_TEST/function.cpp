@@ -280,3 +280,18 @@ double function_softmax_out(int num,double * arr_in,double * answer_in,double **
     delete [] arr_out;
     return loss;
 }
+
+void function_input(int frame_size,ifstream & fid_image, ifstream & fid_lable,double ** frame_out,double *answer_out)
+{
+    for(int i = 0 ; i < frame_size ; i++)
+    {
+        for(int j = 0; j < frame_size ; j++)
+        {
+            fid_image >> frame_out[i][j];
+        }
+    }
+    for(int i = 0 ; i < 10 ; i++)
+    {
+        fid_lable >> answer_out[i];
+    }
+}
