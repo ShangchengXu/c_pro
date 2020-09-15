@@ -26,17 +26,17 @@ ifstream fid_frame_in,fid_answer_in;
 fid_frame_in.open("train_image.txt");
 fid_answer_in.open("train_lable.txt");
 // std::cout<<function_input(frame_in_size,fid_frame_in, fid_answer_in,frame_in,answer_in);
-
+function_input(frame_in_size,fid_frame_in, fid_answer_in,frame_in,answer_in);
 //*****************************config*************************************//
-const int train_rounds = 6000;
-const int test_rounds = 1000;
+const int train_rounds = 2;
+const int test_rounds = 00;
 const int rounds = 100;
 const int frame_c0_size = frame_in_size;
 const int weight_c0_size = 5;
 const int weight_c2_size = 5;
 const int weight_c4_size = 4;
 const int c0_has_sigmoid = 0;
-const int c2_has_sigmoid = 1;
+const int c2_has_sigmoid = 0;
 const int c4_has_sigmoid = 0;
 const int maxpooling_c1_size = 2;
 const int maxpooling_c3_size = 4;
@@ -52,9 +52,9 @@ const int layer_c1_num = 4;
 const int layer_c2_num = 4;
 const int layer_c3_num = 4;
 const int layer_c4_num = 10;
-const double study_speed_c0 = 0.1;
-const double study_speed_c2 = 0.1;
-const double study_speed_c4 = 0.1;
+const double study_speed_c0 = 0.01;
+const double study_speed_c2 = 0.01;
+const double study_speed_c4 = 0.01;
 double ** weight_c0;
 double ** weight_c2;
 double ** weight_c4;
@@ -277,13 +277,25 @@ for(int i = 0 ; i < rounds ; i++)
         frame_softmax_in[j] = layer_cnn_c4[j].layer_output()[0][0];
     }
 
-    // std::cout<<function_softmax_out(layer_c4_num,frame_softmax_in,answer_in,delt_arr_out)<<std::endl;
-    function_softmax_out(layer_c4_num,frame_softmax_in,answer_in,delt_arr_out,0);
+    std::cout<<function_softmax_out(layer_c4_num,frame_softmax_in,answer_in,delt_arr_out,1)<<std::endl;
+    // function_softmax_out(layer_c4_num,frame_softmax_in,answer_in,delt_arr_out,0);
 // ********************backward********************//
     for(int j = 0 ; j < layer_c4_num ; j++)
     {
         layer_cnn_c4[j].layer_backward(delt_arr_out[j]);
         // layer_cnn_c4[j].display();
+    }
+    for(int j = 0 ; j < (frame_c3_size / maxpooling_c3_size)*(frame_c3_size / maxpooling_c3_size);j++)
+    {
+       for(int k = 0 ; k < (frame_c3_size / maxpooling_c3_size)*(frame_c3_size / maxpooling_c3_size);k++) 
+       {    
+           frame_c4_out[j][k] = 0;
+
+           for(int g = 0 ; g < layer_c4_num; g++)
+           {
+               frame_c4_out[j][k] +=  layer_cnn_c4[g].layer_g_frame_output()[j][k];
+           }
+       }
     }
     function_spread((frame_c3_size / maxpooling_c3_size),layer_c3_num,frame_c4_arr,frame_c4_out);
     for(int j = 0 ; j < layer_c3_num ; j++)
@@ -366,7 +378,7 @@ for(int i = 0 ; i < test_rounds ; i++)
     sum += function_softmax_out(layer_c4_num,frame_softmax_in,answer_in,delt_arr_out,1);
 
 }
-std::cout<<sum/test_rounds;
+// std::cout<<sum/test_rounds;
 
  
 
