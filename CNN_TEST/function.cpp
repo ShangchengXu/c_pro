@@ -140,7 +140,7 @@ void function_maxpooling(int frame_in_size,int pooling_size,double ** frame_in, 
         }
     }
 };
-
+ 
 
 double ** function_new_double(int frame_size)
 {
