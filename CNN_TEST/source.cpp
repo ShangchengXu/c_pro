@@ -3,3 +3,4 @@
 #include "layer_cnn.cpp"
 #include "test.cpp"
 #include "layer_maxpooling.cpp"
+#include "cnn_net.cpp"

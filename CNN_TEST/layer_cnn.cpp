@@ -1,6 +1,7 @@
 #include <iostream>
 #include "layer.h"
 #include "function.h"
+#include <cmath>
 void Layer_cnn::initialize()
 {
     frame = new double*[frame_size];
@@ -27,8 +28,9 @@ void Layer_cnn::initialize()
 
 
 
-Layer_cnn::Layer_cnn(int frame_size_,int weight_size_,double * weight_in,double bias_,double study_speed_)
-{
+Layer_cnn::Layer_cnn(int frame_size_,int weight_size_,double * weight_in,double bias_,double study_speed_,int has_sigmoid_)
+{   
+    has_sigmoid = has_sigmoid_;
     frame_size = frame_size_;
     weight_size = weight_size_;
     int f_s = frame_size;
@@ -93,6 +95,7 @@ void Layer_cnn::display()
     function_display(frame_size,frame,"frame");
     function_display(weight_size,weight,"weight");
     function_display(frame_size-weight_size+1,frame_out,"frame_out");
+    function_display(frame_size,g_frame,"g_frame");
     std::cout<<std::endl<<"bias:"<<bias<<std::endl;
 };
 
@@ -113,7 +116,12 @@ void Layer_cnn::layer_forward(int frame_in_size,double ** frame_in)
     {
         for(int j = 0 ; j < frame_size-weight_size+1 ; j++)
         {
+            
             frame_out[i][j] += bias;
+            if(has_sigmoid)
+            {
+               frame_out[i][j] = 1/(1+exp(-frame_out[i][j])) ;
+            }
         }
     }
 };
@@ -124,6 +132,7 @@ void Layer_cnn::layer_backward(double ** g_frame_in)
     double ** g_frame_;
     double ** weight_rot180;
     double ** g_weight;
+    double ** g_frame_in_;
     int g_frame_size_ = frame_size+weight_size-1;
     //************************************************************************//
     g_frame_ = new double *[g_frame_size_];
@@ -145,14 +154,45 @@ void Layer_cnn::layer_backward(double ** g_frame_in)
         g_weight[i] = new double [weight_size];
     }
     //************************************************************************//
+    g_frame_in_ = new double * [frame_size-weight_size + 1];
+    for(int i = 0 ; i < frame_size-weight_size + 1; i++)
+    {
+        g_frame_in_[i] = new double [frame_size-weight_size + 1];
+    }
+
+    if(has_sigmoid)
+    {
+        for(int i = 0 ; i < frame_size-weight_size + 1; i++)
+        {
+            for(int j = 0 ; j < frame_size-weight_size + 1; j++)
+            {
+                g_frame_in_[i][j] = frame_out[i][j]*(1-frame_out[i][j])*g_frame_in[i][j];
+            }
+        }
+        // std::cout<<"has_sigmoid";
+    }
+    else
+    {
+        // std::cout<<"has_not_sigmoid";
+        for(int i = 0 ; i < frame_size-weight_size + 1; i++)
+        {
+            for(int j = 0 ; j < frame_size-weight_size + 1; j++)
+            {
+                g_frame_in_[i][j] = g_frame_in[i][j];
+            }
+        }
+    }
+    
+
+
 
     function_rot180(weight_size,weight_rot180,weight);
-    function_extend(g_frame_size_,weight_size,g_frame_,g_frame_in);
+    function_extend(g_frame_size_,weight_size,g_frame_,g_frame_in_);
     function_cnn(g_frame_size_,weight_size,g_frame_,weight_rot180,g_frame );
     // function_display(g_frame_size_,g_frame_,"g_frame_");
     // function_display(weight_size,weight_rot180,"weight_rot180");
     // function_display(frame_size,g_frame,"g_frame");
-    function_cnn(frame_size,frame_size-weight_size + 1,frame,g_frame_in,g_weight);
+    function_cnn(frame_size,frame_size-weight_size + 1,frame,g_frame_in_,g_weight);
     // function_display(weight_size,g_weight,"g_weight");
 
     for(int i = 0; i < weight_size; i++)
@@ -194,11 +234,19 @@ void Layer_cnn::layer_backward(double ** g_frame_in)
         delete [] g_weight[i];
     }
     delete [] g_weight;
+    for(int i = 0; i < frame_size-weight_size + 1 ; i++)
+    {
+        delete [] g_frame_in_[i];
+    }
+    delete [] g_frame_in_;
 }
 
 double ** Layer_cnn::layer_output()
 {
     return frame_out;
 }
-
+double ** Layer_cnn::layer_g_frame_output()
+{
+    return g_frame;
+}
 

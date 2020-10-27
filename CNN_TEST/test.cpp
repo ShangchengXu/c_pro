@@ -3,12 +3,15 @@
 #include "function.h"
 #include <cstdlib>
 #include "test.h"
+#include <fstream>
 
 void layer_cnn_test()
 {
 
 using namespace std;
     srand(10);
+    ifstream fid_weight;
+    fid_weight.open("weight_c0.txt");
     
     double bias_ = 0;
 
@@ -60,8 +63,8 @@ using namespace std;
     // }
     for(int i = 0; i <wei_size*wei_size ; i++)
     {
-        wei[i] = rand()%256;
-        wei[i] = wei[i]/256;
+        // wei[i] = rand()%256;
+        fid_weight >> wei[i];
         // std::cout << wei[i]<<"  "<< std::endl;
         // wei[i] = wei[i]/512;
     }
@@ -86,11 +89,12 @@ using namespace std;
 
 //************************************************************//
 
-    Layer_cnn layer = Layer_cnn(fra_in_size,wei_size,wei,bias_,0.001);
-    for(int i = 0 ; i < 20000 ; i ++)
+    Layer_cnn layer = Layer_cnn(fra_in_size,wei_size,wei,bias_,0.1,1);
+    // layer.display();
+    for(int i = 0 ; i < 1; i ++)
     {
     layer.layer_forward(fra_in_size,fra_in);
-    // layer.display();
+    layer.display();
     std::cout<<std::endl<<"loss: "<<function_loss(fra_out_size,answer,layer.layer_output())<<std::endl;
     for(int i = 0 ; i < g_fra_size ; i++)
     {
@@ -100,7 +104,7 @@ using namespace std;
             //  std:cout<<std::endl<<"g_fra:"<<g_fra[i][j]<<std::endl;
         }
     }
-    // function_display(g_fra_size,g_fra,"g_fra:");
+    function_display(g_fra_size,g_fra,"g_fra:");
     layer.layer_backward(g_fra);
     }
     std::cout<<std::endl<<"loss: "<<function_loss(fra_out_size,answer,layer.layer_output())<<std::endl;
